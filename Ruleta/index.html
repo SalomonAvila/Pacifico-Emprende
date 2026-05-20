@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Ruleta interactiva de talentos y oportunidades para Tumaco." />
+    <title>Ruleta de Saberes y Oportunidades</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../global.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <main class="app-shell">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Pacifico Emprende</p>
+          <h1>Ruleta de Saberes y Oportunidades</h1>
+          <p class="lead">
+            Una experiencia visual e interactiva para explorar talentos, apoyos y
+            oportunidades presentes en Tumaco.
+          </p>
+        </div>
+      </section>
+
+      <section class="wheel-panel">
+        <div class="wheel-stage">
+          <div class="pointer" aria-hidden="true"></div>
+          <div class="wheel" id="wheel" aria-label="Ruleta interactiva"></div>
+        </div>
+
+        <div class="controls">
+          <button id="spinButton" class="spin-button" type="button">
+            Girar ruleta
+          </button>
+          <button id="shuffleButton" class="ghost-button" type="button">
+            Reiniciar selección
+          </button>
+        </div>
+
+        <div class="card result-card">
+          <h2 id="resultTitle">Sin selección</h2>
+          <p id="resultDescription" class="result-description">
+            Pulsa Girar ruleta para descubrir una categoría.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
