@@ -2,31 +2,31 @@ const categories = [
   {
     title: "Saberes del Territorio",
     description:
-      "Saberes ancestrales, tradiciones artísticas y destrezas prácticas de Tumaco.",
+      "¿Qué destreza práctica, arte o conocimiento tradicional de Tumaco sintieron que la ruleta reconoció en ustedes hoy? ¿Cómo se conecta eso con lo que les gustaría hacer en el futuro?",
     color: "#2f6f61",
   },
   {
     title: "Intereses y Pasiones",
     description:
-      "Áreas de curiosidad, pasatiempos y temas que motivan al estudiante de forma innata.",
+      "¿Qué es aquello en lo que podrían pasar horas investigando o haciendo sin aburrirse? ¿Cómo se puede poner esa pasión al servicio de la comunidad?",
     color: "#4fa3a1",
   },
   {
     title: "Redes de Apoyo",
     description:
-      "Familia, amigos, líderes comunitarios y organizaciones del entorno que sirven de respaldo.",
+      "Cuando la ruleta se detuvo aquí, ¿quién fue la primera persona de su entorno familiar, de amigos o comunitario en la que pensaron como un impulso para sus metas?",
     color: "#7fa86d",
   },
   {
     title: "Fortalezas Personales",
     description:
-      "Atributos de carácter y habilidades blandas como resiliencia, empatía, liderazgo y creatividad.",
+      "¿Qué rasgo de su forma de ser (la resiliencia, la creatividad, la empatía) consideran que es su mayor herramienta para afrontar los retos del día a día?",
     color: "#c88a43",
   },
   {
     title: "Oportunidades del Entorno",
     description:
-      "Opciones de educación superior, formación técnica como el SENA o espacios laborales locales.",
+      "¿Qué espacios de formación académica, técnica o espacios comunitarios identifican actualmente en el municipio que les llame la atención para vincularse?",
     color: "#8e5a47",
   },
 ];
