@@ -85,8 +85,8 @@ h1 {
 h1::after {
   content: "";
   display: block;
-  width: 5.5rem;
-  height: 6px;
+  width: clamp(3rem, 12vw, 5.5rem);
+  height: clamp(3px, 0.6vw, 6px);
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
   margin: 0.6rem auto 0;
   border-radius: 99px;
@@ -102,19 +102,21 @@ h2 {
 .eyebrow,
 .card-label,
 .route-label {
-  margin: 0 0 0.8rem;
+  margin: 0 auto 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.22em;
   font-size: 0.78rem;
   color: var(--accent-2);
+  text-align: center;
 }
 
 .lead {
-  margin: 1rem 0 0;
-  max-width: 62ch;
+  margin: 1rem auto 0;
+  max-width: clamp(40ch, 92%, 62ch);
   color: var(--muted);
-  font-size: 1.05rem;
+  font-size: clamp(0.9rem, 2.2vw, 1.05rem);
   line-height: 1.75;
+  text-align: center;
 }
 
 .ambient {
@@ -170,5 +172,19 @@ h2 {
   .global-shell {
     width: min(100% - 1rem, 1200px);
     padding-top: 1rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .global-shell {
+    width: calc(100% - 1rem);
+    padding: 1.5rem 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .global-shell {
+    width: calc(100% - 1rem);
+    padding: 1rem 0 2rem;
   }
 }
