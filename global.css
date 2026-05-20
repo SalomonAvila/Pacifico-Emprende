@@ -68,6 +68,37 @@ h2 {
   margin: 0;
 }
 
+/* Centrar y estilizar todos los títulos para una apariencia más atractiva */
+h1, h2, h3, h4 {
+  text-align: center;
+  letter-spacing: 0.01em;
+  color: var(--text);
+  text-shadow: 0 8px 30px rgba(2, 8, 12, 0.6);
+}
+
+/* Decoración específica para `h1`: barra de acento centrada */
+h1 {
+  position: relative;
+  font-weight: 700;
+}
+
+h1::after {
+  content: "";
+  display: block;
+  width: 5.5rem;
+  height: 6px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  margin: 0.6rem auto 0;
+  border-radius: 99px;
+  opacity: 0.95;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+h2 {
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
 .eyebrow,
 .card-label,
 .route-label {

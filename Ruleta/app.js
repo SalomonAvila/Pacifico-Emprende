@@ -46,7 +46,7 @@ let spinTimeoutId = null;
 const wheelSize = 600;
 const wheelCenter = wheelSize / 2;
 const wheelRadius = 268;
-const labelRadius = 188;
+const labelRadius = 154;
 
 function polarToCartesian(centerX, centerY, radius, angleDegrees) {
   const angleInRadians = (angleDegrees * Math.PI) / 180;
@@ -101,7 +101,7 @@ function buildLabelMarkup(title, x, y) {
     <text class="segment-label" x="${x}" y="${y}" text-anchor="middle" dominant-baseline="middle">
       ${lines
         .map((line, index) => {
-          const dy = index === 0 ? `${-((lines.length - 1) * 0.55).toFixed(2)}em` : "1.1em";
+          const dy = index === 0 ? `${-((lines.length - 1) * 0.58).toFixed(2)}em` : "1.15em";
           return `<tspan x="${x}" dy="${dy}">${line}</tspan>`;
         })
         .join("")}
