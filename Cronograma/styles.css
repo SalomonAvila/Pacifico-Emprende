@@ -1,0 +1,453 @@
+@import "../global.css";
+
+/* ==========================================================================
+   Shell and Board Structure
+   ========================================================================== */
+.app-shell {
+  width: min(1200px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.hero-copy h1 {
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  margin-top: 0.25rem;
+}
+
+/* Kanban Grid */
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+  width: 100%;
+}
+
+/* ==========================================================================
+   Kanban Column Styles
+   ========================================================================== */
+.kanban-column {
+  background: rgba(10, 24, 35, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  padding: clamp(1.2rem, 2vw, 1.8rem);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 480px;
+  position: relative;
+  transition: border-color 250ms ease, box-shadow 250ms ease;
+}
+
+.kanban-column:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.4);
+}
+
+/* Columna Acentos Visuales */
+.kanban-column[data-col="puerto_final"] {
+  border-top: 4px solid var(--accent-3); /* Selva / A 3 años */
+}
+.kanban-column[data-col="estaciones_intermedias"] {
+  border-top: 4px solid var(--accent); /* Dorado / A 1 año */
+}
+.kanban-column[data-col="timonazo_inmediato"] {
+  border-top: 4px solid var(--accent-2); /* Turquesa / Este mes */
+}
+
+/* Encabezado de Columna */
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.column-header h2 {
+  text-align: left;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: none;
+}
+
+.column-desc {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.4;
+  margin-top: -0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+/* Badges de Tiempo */
+.time-badge {
+  font-size: 0.68rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 99px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.badge-long {
+  background: rgba(127, 176, 105, 0.15);
+  color: var(--accent-3);
+  border: 1px solid rgba(127, 176, 105, 0.25);
+}
+
+.badge-medium {
+  background: rgba(230, 191, 113, 0.15);
+  color: var(--accent);
+  border: 1px solid rgba(230, 191, 113, 0.25);
+}
+
+.badge-short {
+  background: rgba(93, 183, 166, 0.15);
+  color: var(--accent-2);
+  border: 1px solid rgba(93, 183, 166, 0.25);
+}
+
+/* Contenedor de Tarjetas */
+.column-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+  flex-grow: 1;
+  min-height: 150px;
+  overflow-y: auto;
+  padding-right: 0.2rem;
+}
+
+/* ==========================================================================
+   Kanban Task Cards
+   ========================================================================== */
+.kanban-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 0.9rem;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  transition: transform 200ms ease, border-color 200ms ease, background-color 200ms ease, box-shadow 200ms ease;
+  animation: scaleIn 250ms cubic-bezier(0.12, 0.8, 0.13, 1.05);
+}
+
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.kanban-card:hover,
+.kanban-card:focus-within {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
+/* Contenedor editable */
+.card-editor {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  resize: none;
+  overflow: hidden;
+  padding: 0;
+  margin-right: 2.2rem; /* Espacio para el botón Eliminar */
+  min-height: 2.8rem;
+}
+
+.card-editor:focus {
+  outline: none;
+}
+
+.card-editor::placeholder {
+  color: var(--muted);
+  opacity: 0.65;
+  font-style: italic;
+}
+
+/* Botón Eliminar Táctil y Accesible */
+.delete-btn {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  line-height: 1;
+  transition: all 180ms ease;
+  padding: 0;
+  user-select: none;
+  cursor: pointer;
+}
+
+.delete-btn:hover,
+.delete-btn:focus-visible {
+  background: rgba(204, 119, 88, 0.2);
+  border-color: var(--accent-4);
+  color: #fff;
+  transform: scale(1.08);
+}
+
+/* ==========================================================================
+   Botón Agregar Tarea
+   ========================================================================== */
+.add-task-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.92rem;
+  padding: 0.9rem;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 200ms ease;
+  min-height: 48px;
+}
+
+.add-task-btn:hover,
+.add-task-btn:focus-visible {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.add-task-btn .btn-icon {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   Acciones del Cronograma
+   ========================================================================== */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  padding: 0.5rem;
+}
+
+.spin-button {
+  width: 100%;
+  max-width: 450px;
+  font-size: 1.1rem;
+  padding: 1.1rem 2rem;
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 16px 40px rgba(230, 191, 113, 0.15);
+}
+
+/* ==========================================================================
+   Responsividad Móvil
+   ========================================================================== */
+@media (max-width: 960px) {
+  .kanban-board {
+    grid-template-columns: 1fr; /* Apilado vertical en tablet/móvil */
+    gap: 2rem;
+  }
+
+  .kanban-column {
+    min-height: auto;
+    padding: 1.2rem;
+  }
+
+  .column-tasks {
+    min-height: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-shell {
+    width: min(100% - 1rem, 1200px);
+    padding: 1.5rem 0 3rem;
+  }
+
+  .spin-button {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .kanban-column {
+    border-radius: var(--radius-lg);
+  }
+  
+  .kanban-card {
+    padding: 0.75rem;
+  }
+
+  .delete-btn {
+    width: 36px; /* Aumentar tamaño en móvil para diana táctil cómoda */
+    height: 36px;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
+
+/* ==========================================================================
+   Estilos de Impresión (@media print)
+   ========================================================================== */
+@media print {
+  /* Restablecer layout para impresión */
+  html, body, .app-shell {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: 'Space Grotesk', -apple-system, sans-serif !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Ocultar elementos decorativos, botones e inputs interactivos inútiles */
+  .ambient,
+  .back-button,
+  .form-actions,
+  .add-task-btn,
+  .delete-btn,
+  .column-desc {
+    display: none !important;
+  }
+
+  /* Título Principal */
+  .hero {
+    margin-bottom: 2cm !important;
+    text-align: center !important;
+    page-break-after: avoid;
+  }
+
+  .hero-copy p.eyebrow {
+    color: #444444 !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    margin-bottom: 0.4cm !important;
+  }
+
+  .hero-copy h1 {
+    color: #000000 !important;
+    font-size: 24pt !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
+  }
+
+  .hero-copy h1::after {
+    display: none !important;
+  }
+
+  .hero-copy .lead {
+    color: #333333 !important;
+    font-size: 11pt !important;
+    margin-top: 0.6cm !important;
+  }
+
+  /* Tablero - Apilar columnas en impresión para que no se compriman */
+  .kanban-board {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .kanban-column {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 2px solid #000000 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 0 1cm 0 !important;
+    margin-bottom: 2cm !important;
+    min-height: auto !important;
+    page-break-inside: avoid; /* Evitar que la columna se divida en hojas distintas si cabe completa */
+    display: block !important;
+  }
+
+  .column-header {
+    border-bottom: 1px solid #333333 !important;
+    margin-bottom: 0.6cm !important;
+    padding-bottom: 0.15cm !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    page-break-after: avoid;
+  }
+
+  .column-header h2 {
+    color: #000000 !important;
+    font-size: 15pt !important;
+    font-weight: 700 !important;
+  }
+
+  .time-badge {
+    border: 1px solid #111111 !important;
+    background: transparent !important;
+    color: #000000 !important;
+    font-size: 8pt !important;
+    padding: 0.1cm 0.3cm !important;
+  }
+
+  .column-tasks {
+    display: block !important;
+    min-height: auto !important;
+  }
+
+  /* Tarjetas impresas */
+  .kanban-card {
+    background: #fcfcfc !important;
+    border: 1px solid #777777 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin-bottom: 0.4cm !important;
+    padding: 0.3cm 0.4cm !important;
+    page-break-inside: avoid;
+    display: block !important;
+  }
+
+  /* Editor de tarjeta en modo texto plano */
+  .card-editor {
+    color: #000000 !important;
+    font-size: 10pt !important;
+    margin: 0 !important;
+    width: 100% !important;
+    min-height: auto !important;
+    border: none !important;
+    display: block !important;
+    background: transparent !important;
+    white-space: pre-wrap !important;
+  }
+}

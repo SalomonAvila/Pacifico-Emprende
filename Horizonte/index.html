@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Bitácora de orientación socioocupacional - El Horizonte de mis Sueños de Fundación Pacífico Emprende." />
+  <title>El Horizonte de mis Sueños - Pacífico Emprende</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../global.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <main class="app-shell">
+    <a class="back-button top-left" href="../index.html" aria-label="Volver al menú de inicio">Inicio</a>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Bitácora de Navegación</p>
+        <h1>El Horizonte de mis Sueños</h1>
+        <p class="lead">
+          Un espacio interactivo y personal para trazar tu viaje socioocupacional. Reflexiona sobre tu punto de partida, supera las tormentas y define tu destino en el Pacífico.
+        </p>
+      </div>
+    </section>
+
+    <form id="horizonteForm" class="form-container" novalidate>
+      <!-- Estación 1 -->
+      <section class="card station-card" data-station="1" aria-labelledby="title-station-1">
+        <div class="station-header">
+          <div class="station-badge">Estación 1</div>
+          <h2 id="title-station-1">El Puerto de Salida</h2>
+        </div>
+        
+        <div class="form-group">
+          <label for="saberes_territorio">Mis saberes del territorio</label>
+          <span class="input-desc">¿Qué conocimientos, talentos tradicionales, saberes o sabidurías tienes sobre tu entorno en Tumaco?</span>
+          <textarea 
+            id="saberes_territorio" 
+            name="saberes_territorio" 
+            placeholder="Ej. Conozco la pesca tradicional, el cultivo de cacao, la música de marimba o las dinámicas de mi barrio..."
+            rows="4"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="redes_apoyo">Mis redes de apoyo</label>
+          <span class="input-desc">¿Quiénes son las personas, organizaciones, familiares o colectivos en el territorio en los que confías y te apoyan?</span>
+          <textarea 
+            id="redes_apoyo" 
+            name="redes_apoyo" 
+            placeholder="Ej. Mi madre, mi tutor de la fundación, el club juvenil, o mis vecinos..."
+            rows="4"
+          ></textarea>
+        </div>
+      </section>
+
+      <!-- Estación 2 -->
+      <section class="card station-card" data-station="2" aria-labelledby="title-station-2">
+        <div class="station-header">
+          <div class="station-badge">Estación 2</div>
+          <h2 id="title-station-2">El Mar Abierto</h2>
+        </div>
+
+        <div class="form-group">
+          <label for="intereses">Mis intereses y pasiones</label>
+          <span class="input-desc">¿Qué actividades, profesiones, oficios o temas te despiertan curiosidad y te gustaría profundizar?</span>
+          <textarea 
+            id="intereses" 
+            name="intereses" 
+            placeholder="Ej. El diseño digital, el liderazgo social, la gastronomía pacífica, la ingeniería de sistemas o el arte..."
+            rows="4"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="problema_tumaco">¿Qué problema de Tumaco transformaré?</label>
+          <span class="input-desc">¿Qué situación o problemática de tu entorno te duele o te mueve a actuar, y cómo te gustaría aportar a su solución?</span>
+          <textarea 
+            id="problema_tumaco" 
+            name="problema_tumaco" 
+            placeholder="Ej. La falta de empleo juvenil, la contaminación de las playas de El Morro, la escasez de agua potable..."
+            rows="4"
+          ></textarea>
+        </div>
+      </section>
+
+      <!-- Estación 3 -->
+      <section class="card station-card" data-station="3" aria-labelledby="title-station-3">
+        <div class="station-header">
+          <div class="station-badge">Estación 3</div>
+          <h2 id="title-station-3">Las Tormentas</h2>
+        </div>
+
+        <div class="form-group">
+          <label for="obstaculos_entorno">Obstáculos del entorno</label>
+          <span class="input-desc">¿Qué desafíos socioeconómicos, familiares o del contexto local identificas como barreras para cumplir tus metas?</span>
+          <textarea 
+            id="obstaculos_entorno" 
+            name="obstaculos_entorno" 
+            placeholder="Ej. Escasa oferta educativa presencial, limitaciones económicas, falta de conectividad estable..."
+            rows="4"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="herramientas_internas">Mis herramientas internas</label>
+          <span class="input-desc">¿Qué valores, cualidades, talentos o habilidades emocionales tienes para hacer frente a esas tormentas?</span>
+          <textarea 
+            id="herramientas_internas" 
+            name="herramientas_internas" 
+            placeholder="Ej. Resiliencia, creatividad, facilidad de palabra, constancia, autodisciplina..."
+            rows="4"
+          ></textarea>
+        </div>
+      </section>
+
+      <!-- Estación 4 -->
+      <section class="card station-card" data-station="4" aria-labelledby="title-station-4">
+        <div class="station-header">
+          <div class="station-badge">Estación 4</div>
+          <h2 id="title-station-4">El Puerto de Llegada</h2>
+        </div>
+
+        <div class="form-group">
+          <label for="ruta_llegada">Ruta de Destino Principal</label>
+          <span class="input-desc">Selecciona la ruta socioocupacional en la que te ves navegando al terminar tu ciclo escolar:</span>
+          <div class="select-wrapper">
+            <select id="ruta_llegada" name="ruta_llegada">
+              <option value="" disabled selected>Elige una opción...</option>
+              <option value="Educación Superior">Educación Superior (Universitaria)</option>
+              <option value="Formación Técnica">Formación Técnica, Tecnológica o para el Trabajo (SENA/otros)</option>
+              <option value="Emprendimiento">Emprendimiento y Autoempleo (Negocio propio)</option>
+              <option value="Trabajo">Inserción al Mercado Laboral (Empleabilidad directa)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="meta_años">Mi meta a 2-3 años</label>
+          <span class="input-desc">Describe con detalle cómo te visualizas en el puerto de llegada y qué pasos habrás completado en tu proyecto.</span>
+          <textarea 
+            id="meta_años" 
+            name="meta_años" 
+            placeholder="Ej. En 3 años me veo cursando quinto semestre de ingeniería, o liderando mi taller de confección en Tumaco..."
+            rows="4"
+          ></textarea>
+        </div>
+      </section>
+
+      <!-- Acciones de Formulario -->
+      <div class="form-actions">
+        <button type="button" id="exportPdfButton" class="spin-button" aria-label="Exportar esta bitácora a formato PDF">
+          Exportar Bitácora a PDF
+        </button>
+      </div>
+    </form>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tablero Kanban de Metas y Cronograma de Acción - Fundación Pacífico Emprende." />
+  <title>Cronograma de Acción - Pacífico Emprende</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../global.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <main class="app-shell">
+    <a class="back-button top-left" href="../index.html" aria-label="Volver al menú de inicio">Inicio</a>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Tablero Kanban de Metas</p>
+        <h1>Cronograma de Acción</h1>
+        <p class="lead">
+          Visualiza e interactúa con tu proyecto de vida. Organiza tus metas a corto plazo (3 meses), define tus pasos intermedios (1 año) y proyecta tu destino a largo plazo (2-3 años).
+        </p>
+      </div>
+    </section>
+
+    <!-- Tablero Kanban de Metas -->
+    <div class="kanban-board" role="region" aria-label="Tablero Kanban de Planificación">
+      
+      <!-- Columna 1: El Timonazo Inmediato (Corto Plazo - 3 Meses) -->
+      <section class="kanban-column" data-col="timonazo_inmediato" aria-labelledby="col-title-1">
+        <div class="column-header">
+          <h2 id="col-title-1">El Timonazo Inmediato</h2>
+          <span class="time-badge badge-short">A 3 MESES</span>
+        </div>
+        <div class="column-desc">Acciones urgentes y concretas que puedo iniciar este trimestre en mi territorio.</div>
+        
+        <div class="column-tasks" id="tasks-timonazo-inmediato" role="list" aria-label="Acciones de El Timonazo Inmediato (A 3 meses)">
+          <!-- Las tarjetas dinámicas se inyectarán aquí -->
+        </div>
+        
+        <button type="button" class="add-task-btn" data-column="timonazo_inmediato" aria-label="Agregar nueva acción a corto plazo">
+          <span class="btn-icon" aria-hidden="true">+</span> Agregar acción
+        </button>
+      </section>
+
+      <!-- Columna 2: Estaciones Intermedias (Mediano Plazo - 1 Año) -->
+      <section class="kanban-column" data-col="estaciones_intermedias" aria-labelledby="col-title-2">
+        <div class="column-header">
+          <h2 id="col-title-2">Estaciones Intermedias</h2>
+          <span class="time-badge badge-medium">A 1 AÑO</span>
+        </div>
+        <div class="column-desc">Los hitos que debo alcanzar a mediano plazo para seguir la ruta correcta.</div>
+        
+        <div class="column-tasks" id="tasks-estaciones-intermedias" role="list" aria-label="Metas de Estaciones Intermedias (A 1 año)">
+          <!-- Las tarjetas dinámicas se inyectarán aquí -->
+        </div>
+        
+        <button type="button" class="add-task-btn" data-column="estaciones_intermedias" aria-label="Agregar nueva meta a mediano plazo">
+          <span class="btn-icon" aria-hidden="true">+</span> Agregar meta
+        </button>
+      </section>
+
+      <!-- Columna 3: Mi Puerto Final (Largo Plazo - 2-3 Años) -->
+      <section class="kanban-column" data-col="puerto_final" aria-labelledby="col-title-3">
+        <div class="column-header">
+          <h2 id="col-title-3">Mi Puerto Final</h2>
+          <span class="time-badge badge-long">A 2-3 AÑOS</span>
+        </div>
+        <div class="column-desc">El destino final de mi viaje socioocupacional. ¿A dónde quiero llegar?</div>
+        
+        <div class="column-tasks" id="tasks-puerto-final" role="list" aria-label="Metas de Mi Puerto Final (A 2-3 años)">
+          <!-- Las tarjetas dinámicas se inyectarán aquí -->
+        </div>
+        
+        <button type="button" class="add-task-btn" data-column="puerto_final" aria-label="Agregar nueva meta a largo plazo">
+          <span class="btn-icon" aria-hidden="true">+</span> Agregar meta
+        </button>
+      </section>
+
+    </div>
+
+    <!-- Acciones Globales -->
+    <div class="form-actions">
+      <button type="button" id="exportKanbanButton" class="spin-button" aria-label="Exportar este cronograma a formato PDF">
+        Exportar Cronograma a PDF
+      </button>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

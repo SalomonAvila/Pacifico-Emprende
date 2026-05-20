@@ -1,0 +1,383 @@
+@import "../global.css";
+
+/* ==========================================================================
+   Shell and Container Layout
+   ========================================================================== */
+.app-shell {
+  width: min(900px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.hero-copy h1 {
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  margin-top: 0.25rem;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  width: 100%;
+}
+
+/* ==========================================================================
+   Station Cards & Structure
+   ========================================================================== */
+.station-card {
+  border-radius: var(--radius-xl);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+  transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
+  overflow: hidden;
+}
+
+.station-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.45);
+}
+
+/* Identificadores Visuales por Estación (Acentos Dinámicos) */
+.station-card[data-station="1"] {
+  border-left: 4px solid var(--accent-2); /* Puerto Salida - Verde Mar */
+}
+.station-card[data-station="2"] {
+  border-left: 4px solid var(--accent); /* Mar Abierto - Dorado Sol */
+}
+.station-card[data-station="3"] {
+  border-left: 4px solid var(--accent-4); /* Tormentas - Coral Cálido */
+}
+.station-card[data-station="4"] {
+  border-left: 4px solid var(--accent-3); /* Puerto Llegada - Verde Selva */
+}
+
+.station-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.station-badge {
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+}
+
+.station-card[data-station="1"] .station-badge {
+  background: rgba(93, 183, 166, 0.15);
+  color: var(--accent-2);
+}
+.station-card[data-station="2"] .station-badge {
+  background: rgba(230, 191, 113, 0.15);
+  color: var(--accent);
+}
+.station-card[data-station="3"] .station-badge {
+  background: rgba(204, 119, 88, 0.15);
+  color: var(--accent-4);
+}
+.station-card[data-station="4"] .station-badge {
+  background: rgba(127, 176, 105, 0.15);
+  color: var(--accent-3);
+}
+
+.station-header h2 {
+  text-align: left;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  text-shadow: none;
+  letter-spacing: normal;
+}
+
+/* ==========================================================================
+   Form Fields and Inputs
+   ========================================================================== */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.form-group label {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.input-desc {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 0.2rem;
+}
+
+/* Textarea Premium */
+textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  padding: 1.1rem;
+  color: var(--text);
+  line-height: 1.6;
+  resize: vertical;
+  transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+  min-height: 110px;
+}
+
+textarea:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.04);
+}
+
+/* Enfoque diferenciado por estación */
+.station-card[data-station="1"] textarea:focus { border-color: var(--accent-2); }
+.station-card[data-station="2"] textarea:focus { border-color: var(--accent); }
+.station-card[data-station="3"] textarea:focus { border-color: var(--accent-4); }
+.station-card[data-station="4"] textarea:focus,
+.station-card[data-station="4"] select:focus { border-color: var(--accent-3); }
+
+/* Dropdown de Selección Premium */
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.select-wrapper::after {
+  content: "▼";
+  font-size: 0.8rem;
+  color: var(--muted);
+  right: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  pointer-events: none;
+}
+
+select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  padding: 1.1rem;
+  padding-right: 3rem;
+  color: var(--text);
+  cursor: pointer;
+  appearance: none;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+  font-family: inherit;
+}
+
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.04);
+}
+
+select option {
+  background-color: #0d1e2b;
+  color: var(--text);
+}
+
+/* ==========================================================================
+   Action Panel
+   ========================================================================== */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  padding: 0.5rem;
+}
+
+.spin-button {
+  width: 100%;
+  max-width: 450px;
+  font-size: 1.1rem;
+  padding: 1.1rem 2rem;
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 16px 40px rgba(230, 191, 113, 0.15);
+}
+
+/* ==========================================================================
+   Mobile Responsive Adjustments
+   ========================================================================== */
+@media (max-width: 768px) {
+  .app-shell {
+    width: min(100% - 1rem, 900px);
+    padding: 1.5rem 0 3rem;
+    gap: 1.5rem;
+  }
+
+  .station-card {
+    padding: clamp(1.2rem, 3.5vw, 1.8rem);
+    gap: 1.5rem;
+  }
+
+  .station-header h2 {
+    font-size: clamp(1.35rem, 5vw, 1.8rem);
+  }
+
+  .form-group label {
+    font-size: 1.05rem;
+  }
+
+  .input-desc {
+    font-size: 0.85rem;
+  }
+
+  textarea, select {
+    padding: 0.95rem;
+  }
+
+  .form-actions {
+    padding: 0 1rem;
+  }
+
+  .spin-button {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .station-card {
+    border-radius: var(--radius-lg);
+  }
+}
+
+/* ==========================================================================
+   Print Stylesheet (@media print)
+   ========================================================================== */
+@media print {
+  /* Restablecer colores y fondos */
+  html, body, .app-shell, .form-container {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: 'Space Grotesk', -apple-system, sans-serif !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Ocultar elementos decorativos y de UI */
+  .ambient,
+  .back-button,
+  .form-actions,
+  .station-badge,
+  .input-desc {
+    display: none !important;
+  }
+
+  /* Re-estructurar encabezado */
+  .hero {
+    margin-bottom: 2.5cm !important;
+    text-align: center !important;
+    page-break-after: avoid;
+  }
+
+  .hero-copy p.eyebrow {
+    color: #444444 !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    margin-bottom: 0.5cm !important;
+  }
+
+  .hero-copy h1 {
+    color: #000000 !important;
+    font-size: 24pt !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+    margin: 0 !important;
+  }
+
+  .hero-copy h1::after {
+    display: none !important;
+  }
+
+  .hero-copy .lead {
+    color: #333333 !important;
+    font-size: 11pt !important;
+    margin-top: 0.8cm !important;
+    text-align: center !important;
+  }
+
+  /* Tarjetas de formulario */
+  .station-card {
+    border: none !important;
+    border-bottom: 1.5px solid #dddddd !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    margin-bottom: 2cm !important;
+    padding: 0 0 1cm 0 !important;
+    page-break-inside: avoid; /* Evita que una estación se corte a la mitad si es posible */
+    display: block !important;
+  }
+
+  .station-header {
+    border-bottom: 1px solid #111111 !important;
+    margin-bottom: 0.8cm !important;
+    padding-bottom: 0.2cm !important;
+    page-break-after: avoid;
+  }
+
+  .station-header h2 {
+    color: #000000 !important;
+    font-size: 16pt !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+  }
+
+  .form-group {
+    margin-bottom: 0.8cm !important;
+    display: block !important;
+  }
+
+  .form-group label {
+    color: #111111 !important;
+    font-size: 11pt !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.3cm !important;
+    display: block !important;
+  }
+
+  /* Formatear el contenido escrito por el usuario en lugar de textareas/selects */
+  textarea, select {
+    background: #fdfdfd !important;
+    border: 1px solid #999999 !important;
+    color: #000000 !important;
+    font-size: 10pt !important;
+    font-family: inherit !important;
+    border-radius: 0 !important;
+    padding: 0.4cm !important;
+    min-height: auto !important;
+    height: auto !important;
+    width: 100% !important;
+    display: block !important;
+    white-space: pre-wrap !important;
+    box-sizing: border-box !important;
+  }
+
+  .select-wrapper::after {
+    display: none !important;
+  }
+}
