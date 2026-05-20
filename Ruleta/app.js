@@ -148,6 +148,16 @@ function renderWheel() {
   `;
 }
 
+function getIndexFromRotation(rotation) {
+  const segmentAngle = 360 / categories.length;
+  // Normalizar solo para calcular, sin afectar currentRotation
+  const normalizedRotation = ((rotation % 360) + 360) % 360;
+  // El puntero está en 0°, encontrar qué segmento está ahí
+  // La relación es inversa: rotación positiva = segmentos se desplazan en orden inverso bajo el puntero
+  const index = (categories.length - Math.round(normalizedRotation / segmentAngle)) % categories.length;
+  return index;
+}
+
 function setActiveCategory(index) {
   activeIndex = index;
   const category = categories[index];
@@ -180,17 +190,39 @@ function spinWheel() {
   const segmentAngle = 360 / categories.length;
   const targetIndex = Math.floor(Math.random() * categories.length);
   const turns = 5 + Math.floor(Math.random() * 4);
-  const targetAngle = (360 - targetIndex * segmentAngle) % 360;
-  const finalRotation = currentRotation + turns * 360 + targetAngle;
+  
+  // Normalizar rotación actual para saber dónde estamos (0-360)
+  const normalizedCurrent = ((currentRotation % 360) + 360) % 360;
+  
+  // Rotación necesaria para poner el segmento targetIndex en el puntero
+  // La relación es inversa: segmento i requiere rotación (numSegmentos - i) * segmentAngle
+  const targetRotation = (categories.length - targetIndex) * segmentAngle;
+  
+  // Calcular cuánto necesitamos girar desde la posición actual
+  // Siempre giramos hacia adelante (clockwise)
+  let additionalRotation;
+  if (targetRotation <= normalizedCurrent) {
+    additionalRotation = 360 - normalizedCurrent + targetRotation;
+  } else {
+    additionalRotation = targetRotation - normalizedCurrent;
+  }
+  
+  // Añadir vueltas completas
+  const finalRotation = currentRotation + turns * 360 + additionalRotation;
+  
   const finishSpin = () => {
     isSpinning = false;
     spinButton.disabled = false;
     shuffleButton.disabled = false;
-    setActiveCategory(targetIndex);
+    
+    // Calcular el índice real basado en la rotación final
+    const actualIndex = getIndexFromRotation(finalRotation);
+    setActiveCategory(actualIndex);
   };
 
   wheel.style.setProperty("--rotation", `${finalRotation}deg`);
-  currentRotation = ((finalRotation % 360) + 360) % 360;
+  // Guardar la rotación actual para el siguiente spin
+  currentRotation = finalRotation;
 
   if (reducedMotionQuery.matches) {
     finishSpin();
