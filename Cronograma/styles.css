@@ -1,6 +1,44 @@
 @import "../global.css";
 
 /* ==========================================================================
+   Botón de Regreso (Inicio) - Consistencia con Ruleta
+   ========================================================================== */
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.85rem;
+  padding: 0.72rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.back-button.top-left {
+  position: fixed;
+  top: clamp(0.8rem, 2.2vw, 1.4rem);
+  left: clamp(0.8rem, 3vw, 1.6rem);
+  margin: 0;
+  padding: 0.6rem 0.9rem;
+  z-index: 9999;
+  width: auto;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(6px);
+  border-radius: 14px;
+}
+
+.back-button:hover,
+.back-button:focus-visible {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+}
+
+/* ==========================================================================
    Shell and Board Structure
    ========================================================================== */
 .app-shell {
@@ -323,13 +361,28 @@
 }
 
 /* ==========================================================================
-   Estilos de Impresión (@media print)
+   Print Adjustments and Premium Stylesheet (@media print)
    ========================================================================== */
+.print-only {
+  display: none !important;
+}
+
 @media print {
-  /* Restablecer layout para impresión */
+  /* Forzar impresión de colores exactos y fondos en navegadores modernos */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @page {
+    size: portrait;
+    margin: 1.6cm;
+  }
+
+  /* Restablecer colores y fondos */
   html, body, .app-shell {
     background: #ffffff !important;
-    color: #000000 !important;
+    color: #0f172a !important;
     font-family: 'Space Grotesk', -apple-system, sans-serif !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -337,9 +390,10 @@
     padding: 0 !important;
   }
 
-  /* Ocultar elementos decorativos, botones e inputs interactivos inútiles */
+  /* Ocultar elementos decorativos, botones de edición y elementos de UI */
   .ambient,
   .back-button,
+  .hero,
   .form-actions,
   .add-task-btn,
   .delete-btn,
@@ -347,60 +401,109 @@
     display: none !important;
   }
 
-  /* Título Principal */
-  .hero {
-    margin-bottom: 2cm !important;
-    text-align: center !important;
+  /* Mostrar plantillas exclusivas de impresión */
+  .print-only {
+    display: block !important;
+  }
+
+  /* ==========================================================================
+     Encabezado Corporativo Premium (Consistencia Visual)
+     ========================================================================== */
+  .print-header {
+    border-bottom: 2px solid #0f172a;
+    padding-bottom: 0.5cm;
+    margin-bottom: 1.2cm;
     page-break-after: avoid;
   }
 
-  .hero-copy p.eyebrow {
-    color: #444444 !important;
-    font-weight: bold !important;
+  .print-brand-section {
+    text-align: center;
+    margin-bottom: 0.6cm;
+  }
+
+  .print-brand-eyebrow {
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #475569 !important;
+    font-weight: 700;
+  }
+
+  .print-brand-title {
+    font-family: "Fraunces", serif !important;
+    font-size: 26pt !important;
+    font-weight: 700 !important;
+    color: #0f172a !important;
+    margin: 0.1cm 0 0.1cm 0 !important;
+    text-shadow: none !important;
     text-align: center !important;
-    margin-bottom: 0.4cm !important;
   }
 
-  .hero-copy h1 {
-    color: #000000 !important;
-    font-size: 24pt !important;
-    line-height: 1.2 !important;
-    margin: 0 !important;
+  .print-brand-subtitle {
+    font-size: 11pt;
+    font-weight: 500;
+    color: #1e293b !important;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-align: center !important;
   }
 
-  .hero-copy h1::after {
-    display: none !important;
+  .print-student-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5cm;
+    margin-top: 0.8cm;
   }
 
-  .hero-copy .lead {
-    color: #333333 !important;
-    font-size: 11pt !important;
-    margin-top: 0.6cm !important;
+  .print-meta-field {
+    display: flex;
+    align-items: flex-end;
+    flex-grow: 1;
   }
 
-  /* Tablero - Apilar columnas en impresión para que no se compriman */
+  .print-meta-label {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #0f172a;
+    margin-right: 0.25cm;
+    white-space: nowrap;
+  }
+
+  .print-meta-line {
+    border-bottom: 1px dashed #64748b;
+    flex-grow: 1;
+    height: 1.1em;
+  }
+
+  /* ==========================================================================
+     Tablero Kanban Re-estructurado Verticalmente para Impresión
+     ========================================================================== */
   .kanban-board {
     display: block !important;
     width: 100% !important;
   }
 
   .kanban-column {
-    background: transparent !important;
-    border: none !important;
-    border-bottom: 2px solid #000000 !important;
-    border-radius: 0 !important;
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 8px !important;
     box-shadow: none !important;
-    padding: 0 0 1cm 0 !important;
-    margin-bottom: 2cm !important;
+    padding: 0.5cm !important;
+    margin-bottom: 1cm !important;
     min-height: auto !important;
-    page-break-inside: avoid; /* Evitar que la columna se divida en hojas distintas si cabe completa */
+    page-break-inside: avoid; /* Evitar partir la columna a la mitad */
     display: block !important;
   }
 
+  /* Colores de Borde Superior Exactos en Impresión */
+  .kanban-column[data-col="timonazo_inmediato"] { border-top: 5px solid #5db7a6 !important; }
+  .kanban-column[data-col="estaciones_intermedias"] { border-top: 5px solid #e6bf71 !important; }
+  .kanban-column[data-col="puerto_final"] { border-top: 5px solid #7fb069 !important; }
+
   .column-header {
-    border-bottom: 1px solid #333333 !important;
-    margin-bottom: 0.6cm !important;
-    padding-bottom: 0.15cm !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    margin-bottom: 0.4cm !important;
+    padding-bottom: 0.2cm !important;
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
@@ -408,40 +511,46 @@
   }
 
   .column-header h2 {
-    color: #000000 !important;
-    font-size: 15pt !important;
+    color: #0f172a !important;
+    font-size: 13pt !important;
     font-weight: 700 !important;
+    margin: 0 !important;
   }
 
+  /* Badges de Tiempo Re-estilizados en PDF */
   .time-badge {
-    border: 1px solid #111111 !important;
-    background: transparent !important;
-    color: #000000 !important;
     font-size: 8pt !important;
     padding: 0.1cm 0.3cm !important;
+    border-radius: 4px !important;
+    font-weight: 700 !important;
+    border: 1px solid #cbd5e1 !important;
   }
+
+  .badge-short { background: #e2f2ee !important; color: #1e6b5c !important; }
+  .badge-medium { background: #fdf6e2 !important; color: #845e1b !important; }
+  .badge-long { background: #eff7ec !important; color: #3b6028 !important; }
 
   .column-tasks {
     display: block !important;
     min-height: auto !important;
   }
 
-  /* Tarjetas impresas */
+  /* Tarjetas del Tablero */
   .kanban-card {
-    background: #fcfcfc !important;
-    border: 1px solid #777777 !important;
-    border-radius: 0 !important;
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 6px !important;
     box-shadow: none !important;
-    margin-bottom: 0.4cm !important;
+    margin-bottom: 0.3cm !important;
     padding: 0.3cm 0.4cm !important;
     page-break-inside: avoid;
     display: block !important;
   }
 
-  /* Editor de tarjeta en modo texto plano */
+  /* Contenido Escrito en la Tarjeta */
   .card-editor {
-    color: #000000 !important;
-    font-size: 10pt !important;
+    color: #0f172a !important;
+    font-size: 9.5pt !important;
     margin: 0 !important;
     width: 100% !important;
     min-height: auto !important;
@@ -449,5 +558,59 @@
     display: block !important;
     background: transparent !important;
     white-space: pre-wrap !important;
+    line-height: 1.4 !important;
+  }
+
+  /* ==========================================================================
+     Pie de Página y Firmas de Compromiso
+     ========================================================================== */
+  .print-footer {
+    margin-top: 1.5cm;
+    page-break-inside: avoid;
+  }
+
+  .print-decorative-line {
+    width: 100%;
+    height: 1px;
+    background: #e2e8f0;
+    margin-bottom: 0.5cm;
+  }
+
+  .print-motto {
+    text-align: center;
+    font-style: italic;
+    font-size: 11pt;
+    color: #475569 !important;
+    margin-bottom: 1.4cm;
+  }
+
+  .print-signature-row {
+    display: flex;
+    justify-content: space-around;
+    gap: 2cm;
+    margin-top: 1cm;
+  }
+
+  .print-signature-box {
+    text-align: center;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .print-signature-line {
+    border-top: 1.5px solid #475569;
+    width: 100%;
+    margin-bottom: 0.2cm;
+  }
+
+  .print-signature-label {
+    font-size: 8.5pt;
+    color: #64748b !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
   }
 }
+

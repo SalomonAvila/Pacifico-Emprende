@@ -1,6 +1,44 @@
 @import "../global.css";
 
 /* ==========================================================================
+   Botón de Regreso (Inicio) - Consistencia con Ruleta
+   ========================================================================== */
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.85rem;
+  padding: 0.72rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.back-button.top-left {
+  position: fixed;
+  top: clamp(0.8rem, 2.2vw, 1.4rem);
+  left: clamp(0.8rem, 3vw, 1.6rem);
+  margin: 0;
+  padding: 0.6rem 0.9rem;
+  z-index: 9999;
+  width: auto;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(6px);
+  border-radius: 14px;
+}
+
+.back-button:hover,
+.back-button:focus-visible {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+}
+
+/* ==========================================================================
    Shell and Container Layout
    ========================================================================== */
 .app-shell {
@@ -264,13 +302,28 @@ select option {
 }
 
 /* ==========================================================================
-   Print Stylesheet (@media print)
+   Print Adjustments and Premium Stylesheet (@media print)
    ========================================================================== */
+.print-only {
+  display: none !important;
+}
+
 @media print {
+  /* Forzar impresión de colores exactos y fondos en navegadores modernos */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @page {
+    size: portrait;
+    margin: 1.6cm;
+  }
+
   /* Restablecer colores y fondos */
   html, body, .app-shell, .form-container {
     background: #ffffff !important;
-    color: #000000 !important;
+    color: #0f172a !important;
     font-family: 'Space Grotesk', -apple-system, sans-serif !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -278,98 +331,170 @@ select option {
     padding: 0 !important;
   }
 
-  /* Ocultar elementos decorativos y de UI */
+  /* Ocultar elementos de UI y decoraciones innecesarias */
   .ambient,
   .back-button,
+  .hero,
   .form-actions,
-  .station-badge,
   .input-desc {
     display: none !important;
   }
 
-  /* Re-estructurar encabezado */
-  .hero {
-    margin-bottom: 2.5cm !important;
-    text-align: center !important;
-    page-break-after: avoid;
-  }
-
-  .hero-copy p.eyebrow {
-    color: #444444 !important;
-    font-weight: bold !important;
-    text-align: center !important;
-    margin-bottom: 0.5cm !important;
-  }
-
-  .hero-copy h1 {
-    color: #000000 !important;
-    font-size: 24pt !important;
-    line-height: 1.2 !important;
-    text-align: center !important;
-    margin: 0 !important;
-  }
-
-  .hero-copy h1::after {
-    display: none !important;
-  }
-
-  .hero-copy .lead {
-    color: #333333 !important;
-    font-size: 11pt !important;
-    margin-top: 0.8cm !important;
-    text-align: center !important;
-  }
-
-  /* Tarjetas de formulario */
-  .station-card {
-    border: none !important;
-    border-bottom: 1.5px solid #dddddd !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    margin-bottom: 2cm !important;
-    padding: 0 0 1cm 0 !important;
-    page-break-inside: avoid; /* Evita que una estación se corte a la mitad si es posible */
+  /* Mostrar plantillas exclusivas de impresión */
+  .print-only {
     display: block !important;
   }
 
-  .station-header {
-    border-bottom: 1px solid #111111 !important;
-    margin-bottom: 0.8cm !important;
-    padding-bottom: 0.2cm !important;
+  /* ==========================================================================
+     Encabezado Corporativo Premium
+     ========================================================================== */
+  .print-header {
+    border-bottom: 2px solid #0f172a;
+    padding-bottom: 0.5cm;
+    margin-bottom: 1.2cm;
     page-break-after: avoid;
   }
 
-  .station-header h2 {
-    color: #000000 !important;
-    font-size: 16pt !important;
-    font-weight: 700 !important;
-    margin: 0 !important;
+  .print-brand-section {
+    text-align: center;
+    margin-bottom: 0.6cm;
   }
 
+  .print-brand-eyebrow {
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #475569 !important;
+    font-weight: 700;
+  }
+
+  .print-brand-title {
+    font-family: "Fraunces", serif !important;
+    font-size: 26pt !important;
+    font-weight: 700 !important;
+    color: #0f172a !important;
+    margin: 0.1cm 0 0.1cm 0 !important;
+    text-shadow: none !important;
+    text-align: center !important;
+  }
+
+  .print-brand-subtitle {
+    font-size: 11pt;
+    font-weight: 500;
+    color: #1e293b !important;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-align: center !important;
+  }
+
+  .print-student-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5cm;
+    margin-top: 0.8cm;
+  }
+
+  .print-meta-field {
+    display: flex;
+    align-items: flex-end;
+    flex-grow: 1;
+  }
+
+  .print-meta-label {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #0f172a;
+    margin-right: 0.25cm;
+    white-space: nowrap;
+  }
+
+  .print-meta-line {
+    border-bottom: 1px dashed #64748b;
+    flex-grow: 1;
+    height: 1.1em;
+  }
+
+  /* ==========================================================================
+     Tarjetas de Estación Re-estilizadas
+     ========================================================================== */
+  .station-card {
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    background: #f8fafc !important;
+    box-shadow: none !important;
+    margin-bottom: 1cm !important;
+    padding: 0.6cm !important;
+    page-break-inside: avoid; /* Evitar partir la tarjeta entre páginas */
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.8cm !important;
+  }
+
+  /* Acentos de color exactos en el PDF */
+  .station-card[data-station="1"] { border-left: 5px solid #5db7a6 !important; }
+  .station-card[data-station="2"] { border-left: 5px solid #e6bf71 !important; }
+  .station-card[data-station="3"] { border-left: 5px solid #cc7758 !important; }
+  .station-card[data-station="4"] { border-left: 5px solid #7fb069 !important; }
+
+  .station-header {
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding-bottom: 0.25cm !important;
+    margin-bottom: 0.1cm !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 0.4cm !important;
+    page-break-after: avoid;
+  }
+
+  .station-badge {
+    display: inline-block !important;
+    font-size: 8pt !important;
+    padding: 0.15cm 0.4cm !important;
+    border-radius: 4px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+  }
+
+  .station-card[data-station="1"] .station-badge { background: #e2f2ee !important; color: #1e6b5c !important; }
+  .station-card[data-station="2"] .station-badge { background: #fdf6e2 !important; color: #845e1b !important; }
+  .station-card[data-station="3"] .station-badge { background: #fbeee8 !important; color: #843a1f !important; }
+  .station-card[data-station="4"] .station-badge { background: #eff7ec !important; color: #3b6028 !important; }
+
+  .station-header h2 {
+    font-size: 14pt !important;
+    color: #0f172a !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    text-shadow: none !important;
+  }
+
+  /* Campos de Formulario */
   .form-group {
-    margin-bottom: 0.8cm !important;
+    margin-bottom: 0.2cm !important;
     display: block !important;
   }
 
   .form-group label {
-    color: #111111 !important;
-    font-size: 11pt !important;
+    font-size: 10pt !important;
     font-weight: 700 !important;
-    margin-bottom: 0.3cm !important;
+    color: #1e293b !important;
+    margin-bottom: 0.2cm !important;
     display: block !important;
   }
 
-  /* Formatear el contenido escrito por el usuario en lugar de textareas/selects */
+  /* Formatear Textareas y Selects como cajas elegantes de lectura */
   textarea, select {
-    background: #fdfdfd !important;
-    border: 1px solid #999999 !important;
-    color: #000000 !important;
-    font-size: 10pt !important;
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    font-size: 9.5pt !important;
     font-family: inherit !important;
-    border-radius: 0 !important;
-    padding: 0.4cm !important;
-    min-height: auto !important;
+    border-radius: 6px !important;
+    padding: 0.3cm !important;
+    min-height: 80px !important;
     height: auto !important;
     width: 100% !important;
     display: block !important;
@@ -380,4 +505,57 @@ select option {
   .select-wrapper::after {
     display: none !important;
   }
+
+  /* ==========================================================================
+     Pie de Página y Firmas de Compromiso
+     ========================================================================== */
+  .print-footer {
+    margin-top: 1.5cm;
+    page-break-inside: avoid;
+  }
+
+  .print-decorative-line {
+    width: 100%;
+    height: 1px;
+    background: #e2e8f0;
+    margin-bottom: 0.5cm;
+  }
+
+  .print-motto {
+    text-align: center;
+    font-style: italic;
+    font-size: 11pt;
+    color: #475569 !important;
+    margin-bottom: 1.4cm;
+  }
+
+  .print-signature-row {
+    display: flex;
+    justify-content: space-around;
+    gap: 2cm;
+    margin-top: 1cm;
+  }
+
+  .print-signature-box {
+    text-align: center;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .print-signature-line {
+    border-top: 1.5px solid #475569;
+    width: 100%;
+    margin-bottom: 0.2cm;
+  }
+
+  .print-signature-label {
+    font-size: 8.5pt;
+    color: #64748b !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+  }
 }
+

@@ -16,6 +16,25 @@
   <div class="ambient ambient-two" aria-hidden="true"></div>
 
   <main class="app-shell">
+    <!-- Encabezado exclusivo para impresión en PDF -->
+    <div class="print-header print-only" aria-hidden="true">
+      <div class="print-brand-section">
+        <span class="print-brand-eyebrow">Fundación Pacífico Emprende</span>
+        <h1 class="print-brand-title">Bitácora de Navegación</h1>
+        <p class="print-brand-subtitle">Ruta de Orientación Socioocupacional</p>
+      </div>
+      <div class="print-student-meta">
+        <div class="print-meta-field">
+          <span class="print-meta-label">Estudiante:</span>
+          <span class="print-meta-line">____________________________________________________</span>
+        </div>
+        <div class="print-meta-field">
+          <span class="print-meta-label">Fecha:</span>
+          <span class="print-meta-line">________________________</span>
+        </div>
+      </div>
+    </div>
+
     <a class="back-button top-left" href="../index.html" aria-label="Volver al menú de inicio">Inicio</a>
 
     <section class="hero">
@@ -151,6 +170,22 @@
           ></textarea>
         </div>
       </section>
+
+      <!-- Pie de página exclusivo para impresión en PDF -->
+      <footer class="print-footer print-only" aria-hidden="true">
+        <div class="print-decorative-line"></div>
+        <p class="print-motto">"Navegando con paso firme hacia el futuro del Pacífico"</p>
+        <div class="print-signature-row">
+          <div class="print-signature-box">
+            <div class="print-signature-line"></div>
+            <span class="print-signature-label">Firma del Estudiante</span>
+          </div>
+          <div class="print-signature-box">
+            <div class="print-signature-line"></div>
+            <span class="print-signature-label">Firma del Tutor / Orientador</span>
+          </div>
+        </div>
+      </footer>
 
       <!-- Acciones de Formulario -->
       <div class="form-actions">
