@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Inicializar Tema desde LocalStorage (sincronizar con documentElement)
+  const savedTheme = localStorage.getItem('pacifico_theme');
+  if (savedTheme === 'light') {
+    document.documentElement.classList.add('light-theme');
+  }
+
+  // Escuchar Toggle de Tema
+  const themeToggle = document.getElementById('themeToggleButton');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('light-theme');
+      const isLight = document.documentElement.classList.contains('light-theme');
+      localStorage.setItem('pacifico_theme', isLight ? 'light' : 'dark');
+    });
+  }
+
   const STORAGE_KEY = 'pacifico_kanban_data';
 
   // Estructura de datos inicial por defecto

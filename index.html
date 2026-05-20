@@ -2,6 +2,11 @@
 <html lang="es">
 
 <head>
+  <script>
+    if (localStorage.getItem('pacifico_theme') === 'light') {
+      document.documentElement.classList.add('light-theme');
+    }
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ruleta de Saberes y Oportunidades</title>
@@ -19,6 +24,12 @@
 <body>
   <div class="ambient ambient-one"></div>
   <div class="ambient ambient-two"></div>
+  
+  <!-- Botón Global de Cambio de Tema -->
+  <button type="button" id="themeToggleButton" class="theme-toggle-btn top-right" aria-label="Cambiar tema (Claro / Oscuro)">
+    <span class="toggle-icon" aria-hidden="true">🌓</span>
+  </button>
+
   <main class="global-shell landing-shell">
     <section class="brand-panel surface">
       <p class="eyebrow">Fundación Pacífico Emprende</p>
@@ -30,12 +41,30 @@
       </p>
 
       <div class="hero-actions" aria-label="Módulos disponibles">
-        <a class="launch-button primary" href="Ruleta/index.html">Ruleta de Saberes</a>
-        <a class="launch-button secondary" href="Horizonte/index.html">Horizonte de Sueños</a>
-        <a class="launch-button secondary" href="Cronograma/index.html">Cronograma de Acción</a>
+        <a class="launch-button btn-ruleta" href="Ruleta/index.html">Ruleta de Saberes</a>
+        <a class="launch-button btn-horizonte" href="Horizonte/index.html">Horizonte de Sueños</a>
+        <a class="launch-button btn-cronograma" href="Cronograma/index.html">Cronograma de Acción</a>
       </div>
     </section>
   </main>
+
+  <script>
+    // Inicializar tema desde LocalStorage (sincronizar con documentElement por si acaso)
+    const savedTheme = localStorage.getItem('pacifico_theme');
+    if (savedTheme === 'light') {
+      document.documentElement.classList.add('light-theme');
+    }
+    
+    // Manejar evento de toggle
+    const toggleBtn = document.getElementById('themeToggleButton');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        document.documentElement.classList.toggle('light-theme');
+        const isLight = document.documentElement.classList.contains('light-theme');
+        localStorage.setItem('pacifico_theme', isLight ? 'light' : 'dark');
+      });
+    }
+  </script>
 </body>
 
 </html>

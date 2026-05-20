@@ -1,3 +1,21 @@
+document.addEventListener('DOMContentLoaded', () => {
+  // Inicializar Tema desde LocalStorage (sincronizar con documentElement)
+  const savedTheme = localStorage.getItem('pacifico_theme');
+  if (savedTheme === 'light') {
+    document.documentElement.classList.add('light-theme');
+  }
+
+  // Escuchar Toggle de Tema
+  const themeToggle = document.getElementById('themeToggleButton');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('light-theme');
+      const isLight = document.documentElement.classList.contains('light-theme');
+      localStorage.setItem('pacifico_theme', isLight ? 'light' : 'dark');
+    });
+  }
+});
+
 const categories = [
   {
     title: "Saberes del Territorio",
@@ -188,8 +206,12 @@ function spinWheel() {
   shuffleButton.disabled = true;
 
   const segmentAngle = 360 / categories.length;
-  const targetIndex = Math.floor(Math.random() * categories.length);
-  const turns = 5 + Math.floor(Math.random() * 4);
+
+  // Generar índice y vueltas usando criptografía segura (evita repeticiones artificiales de Math.random)
+  const randomBuffer = new Uint32Array(2);
+  window.crypto.getRandomValues(randomBuffer);
+  const targetIndex = randomBuffer[0] % categories.length;
+  const turns = 5 + (randomBuffer[1] % 4); // Entre 5 y 8 vueltas completas
   
   // Normalizar rotación actual para saber dónde estamos (0-360)
   const normalizedCurrent = ((currentRotation % 360) + 360) % 360;
@@ -210,14 +232,17 @@ function spinWheel() {
   // Añadir vueltas completas
   const finalRotation = currentRotation + turns * 360 + additionalRotation;
   
+  let transitionDone = false;
   const finishSpin = () => {
+    if (transitionDone) return;
+    transitionDone = true;
+
     isSpinning = false;
     spinButton.disabled = false;
     shuffleButton.disabled = false;
     
-    // Calcular el índice real basado en la rotación final
-    const actualIndex = getIndexFromRotation(finalRotation);
-    setActiveCategory(actualIndex);
+    // Mapear directamente al targetIndex criptográfico para precisión matemática absoluta
+    setActiveCategory(targetIndex);
   };
 
   wheel.style.setProperty("--rotation", `${finalRotation}deg`);
@@ -230,17 +255,21 @@ function spinWheel() {
   }
 
   const handleDone = (event) => {
-    if (event.target !== wheel) {
+    if (event && event.target && event.target !== wheel) {
       return;
     }
 
-    window.clearTimeout(spinTimeoutId);
-    spinTimeoutId = null;
+    if (spinTimeoutId) {
+      window.clearTimeout(spinTimeoutId);
+      spinTimeoutId = null;
+    }
     finishSpin();
+    
+    wheel.removeEventListener("transitionend", handleDone);
   };
 
   wheel.addEventListener("transitionend", handleDone, { once: true });
-  spinTimeoutId = window.setTimeout(finishSpin, 4700);
+  spinTimeoutId = window.setTimeout(handleDone, 4700);
 }
 
 spinButton.addEventListener("click", spinWheel);

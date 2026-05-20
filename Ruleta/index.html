@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="es">
   <head>
+    <script>
+      if (localStorage.getItem('pacifico_theme') === 'light') {
+        document.documentElement.classList.add('light-theme');
+      }
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Ruleta interactiva de talentos y oportunidades para Tumaco." />
@@ -14,6 +19,11 @@
   <body>
     <div class="ambient ambient-one"></div>
     <div class="ambient ambient-two"></div>
+
+    <!-- Botón Global de Cambio de Tema -->
+    <button type="button" id="themeToggleButton" class="theme-toggle-btn top-right" aria-label="Cambiar tema (Claro / Oscuro)">
+      <span class="toggle-icon" aria-hidden="true">🌓</span>
+    </button>
 
     <main class="app-shell">
       <section class="hero">
